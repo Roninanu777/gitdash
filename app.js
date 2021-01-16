@@ -1,17 +1,17 @@
 var express = require("express");
-var path = require("path");
 var logger = require("morgan");
-
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+var cors = require("cors");
+var helmet = require("helmet");
+var tokenRouter = require("./routes/auth.route");
 
 var app = express();
 
+app.use(cors());
+app.use(helmet());
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/auth", tokenRouter);
 
 module.exports = app;
