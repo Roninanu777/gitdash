@@ -1,7 +1,8 @@
 const fs = require("fs");
-const User = require("../models/User");
+const path = require("path");
+const User = require("../models/User.model");
 const jwt = require("jsonwebtoken");
-const pathToKey = path.join(__dirname, "..", "gitdash-rsa-priv.pem");
+const pathToKey = path.join(__dirname, "..", "gitdash-rsa-pub.pem");
 const PUB_KEY = fs.readFileSync(pathToKey, "utf8");
 
 module.exports = {
