@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const axios = require("axios");
 const User = require("../models/User.model");
 const jwt = require("jsonwebtoken");
 const pathToKey = path.join(__dirname, "..", "gitdash-rsa-pub.pem");
@@ -12,6 +13,14 @@ module.exports = {
     if (!code) {
       res.send({ status: 404, message: "Code not found" });
     }
+
+    const response = await axios.post(
+      `${process.env.GITHUB_TOKEN_URI}/code=${code}&state=${process.env.GITHUB_SECRET_STATE}&client_id=${process.env.GITHUB_CLIENT_ID}`
+    );
+
+    console.log(code);
+
+    res.send(`The code is ${code}`);
   },
 
   isAuth: async (req, res, next) => {
