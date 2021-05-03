@@ -14,9 +14,27 @@ module.exports = {
       res.send({ status: 404, message: "Code not found" });
     }
 
-    const response = await axios.post(
-      `${process.env.GITHUB_TOKEN_URI}/code=${code}&state=${process.env.GITHUB_SECRET_STATE}&client_id=${process.env.GITHUB_CLIENT_ID}`
-    );
+    try {
+      const response = await axios.post(
+        `${process.env.GITHUB_TOKEN_URI}`,
+        {},
+        {
+          params: {
+            code: code,
+            client_secret: process.env.GITHUB_CLIENT_SECRET,
+            client_id: process.env.GITHUB_CLIENT_ID,
+            state: process.env.GIT_SECRET_STATE,
+          },
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.log(error.response);
+    }
 
     console.log(code);
 
