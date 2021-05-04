@@ -8,10 +8,6 @@ const userSchema = new Schema(
       default: {},
     },
     email: String,
-    address: {
-      city: String,
-      country: String,
-    },
     status: String,
     github_details: {
       type: Object,
