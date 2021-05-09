@@ -9,9 +9,8 @@ const userSchema = new Schema(
     },
     email: String,
     status: String,
-    github_details: {
-      type: Object,
-      default: {},
+    githubId: {
+      type: String,
     },
   },
   { timestamps: true }
