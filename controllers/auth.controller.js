@@ -31,14 +31,11 @@ module.exports = {
           },
         }
       );
+      res.redirect("/auth/success");
       console.log(response.data);
     } catch (error) {
       console.log(error.response);
     }
-
-    console.log(code);
-
-    res.send(`The code is ${code}`);
   },
 
   isAuth: async (req, res, next) => {
