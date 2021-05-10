@@ -1,5 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
-import axios from "axios";
+import React, { useContext, useState } from "react";
 import { SidebarContext } from "../context/SidebarContext";
 import { ProfileContext } from "../context/ProfileContext";
 import {
@@ -20,11 +19,10 @@ import {
   WindmillContext,
 } from "@windmill/react-ui";
 
-function Header() {
+function Header(props) {
   const { mode, toggleMode } = useContext(WindmillContext);
   const { toggleSidebar } = useContext(SidebarContext);
-  const [profile, setProfile] = useState({});
-  const { toggleProfile, setProfileHandler } = useContext(ProfileContext);
+  const { toggleProfile } = useContext(ProfileContext);
 
   const [isNotificationsMenuOpen, setIsNotificationsMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -36,16 +34,6 @@ function Header() {
   function handleProfileClick() {
     setIsProfileMenuOpen(!isProfileMenuOpen);
   }
-
-  useEffect(() => {
-    (async () => {
-      const resp = await axios.get("https://api.github.com/user");
-      setProfileHandler(resp.data);
-      setProfile(resp.data);
-      console.log(resp.data);
-    })();
-    //eslint-disable-next-line
-  }, []);
 
   return (
     <header className="z-10 py-4 bg-white shadow-bottom dark:bg-gray-800">
@@ -130,7 +118,7 @@ function Header() {
             >
               <Avatar
                 className="align-middle"
-                src={profile.avatar_url}
+                src={props.data.avatar_url}
                 alt=""
                 aria-hidden="true"
               />

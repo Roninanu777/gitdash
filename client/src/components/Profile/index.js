@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 
 import { ProfileContext } from "../../context/ProfileContext";
-import { Card, CardBody } from "@windmill/react-ui";
+import { Card, CardBody, Button } from "@windmill/react-ui";
 import { MailIcon, HomeIcon, PeopleIcon } from "../../icons";
 
 const Profile = (props) => {
@@ -34,6 +34,7 @@ const Profile = (props) => {
         <p className="w-full text-center text-sm mt-2 text-gray-500 dark:text-gray-600 tracking-wide font-semibold">
           {props.data.bio}
         </p>
+        <Button className="mt-4">Download Profile</Button>
         <Card className="mt-8 px-8">
           <CardBody>
             <div className="flex items-center border-b pb-3 border-gray-200 dark:border-gray-600 mt-4">

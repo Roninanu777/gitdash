@@ -19,17 +19,13 @@ export const ProfileProvider = ({ children }) => {
     setProfileData(data);
   }
 
-  const value = useMemo(
-    () => ({
-      isProfileOpen,
-      toggleProfile,
-      closeProfile,
-      profileData,
-      setProfileHandler,
-    }),
-    //eslint-disable-next-line
-    [isProfileOpen]
-  );
+  const value = {
+    isProfileOpen,
+    toggleProfile,
+    closeProfile,
+    profileData,
+    setProfileHandler,
+  };
 
   return (
     <ProfileContext.Provider value={value}>{children}</ProfileContext.Provider>
