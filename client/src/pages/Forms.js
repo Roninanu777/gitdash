@@ -14,7 +14,7 @@ function Forms() {
     <>
       <PageTitle>Repositories</PageTitle>
       <CTA />
-      <div className="grid grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         {repoData.map((repo, i) => (
           <RepoCard repo={repo} key={i} />
         ))}
