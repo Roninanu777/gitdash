@@ -1,4 +1,5 @@
-import React, { useContext, Suspense, useEffect, lazy } from "react";
+import React, { useContext, Suspense, useEffect, useState, lazy } from "react";
+import axios from "axios";
 import Profile from "../components/Profile";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import routes from "../routes";
@@ -14,7 +15,8 @@ const Page404 = lazy(() => import("../pages/404"));
 
 function Layout() {
   const { isSidebarOpen, closeSidebar } = useContext(SidebarContext);
-  const { profileData } = useContext(ProfileContext);
+  const [profile, setProfile] = useState({});
+  const { setProfileHandler } = useContext(ProfileContext);
   let location = useLocation();
 
   useEffect(() => {
@@ -22,6 +24,16 @@ function Layout() {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
+
+  useEffect(() => {
+    (async () => {
+      const resp = await axios.get("https://api.github.com/user");
+      setProfileHandler(resp.data);
+      setProfile(resp.data);
+      console.log(resp.data);
+    })();
+    //eslint-disable-next-line
+  }, []);
 
   return (
     <div
@@ -32,7 +44,7 @@ function Layout() {
       <Sidebar />
 
       <div className="flex flex-col flex-1 w-full">
-        <Header />
+        <Header data={profile} />
         <Main>
           <Suspense fallback={<ThemedSuspense />}>
             <Switch>
@@ -52,7 +64,7 @@ function Layout() {
           </Suspense>
         </Main>
       </div>
-      <Profile data={profileData} />
+      <Profile data={profile} />
     </div>
   );
 }
