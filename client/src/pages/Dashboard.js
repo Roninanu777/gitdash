@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 
 import CTA from "../components/CTA";
 import InfoCard from "../components/Cards/InfoCard";
@@ -10,17 +10,6 @@ import { StarIcon, PeopleIcon, RepoIcon } from "../icons";
 import RoundIcon from "../components/RoundIcon";
 import { ProfileContext } from "../context/ProfileContext";
 import { RepoContext } from "../context/RepoContext";
-import {
-  TableBody,
-  TableContainer,
-  Table,
-  TableHeader,
-  TableCell,
-  TableRow,
-  TableFooter,
-  Avatar,
-  Pagination,
-} from "@windmill/react-ui";
 
 import {
   doughnutOptions,
@@ -50,6 +39,7 @@ function Dashboard() {
       );
       setRepoHandler(resp.data);
     })();
+    //eslint-disable-next-line
   }, []);
 
   const totalStars = () => {

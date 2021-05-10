@@ -1,56 +1,15 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 
 import CTA from "../components/CTA";
 import PageTitle from "../components/Typography/PageTitle";
 import RepoCard from "../components/Cards/RepoCard.js";
-import {
-  TableBody,
-  TableContainer,
-  Table,
-  TableHeader,
-  TableCell,
-  TableRow,
-  TableFooter,
-  Avatar,
-  Card,
-  CardBody,
-  Pagination,
-} from "@windmill/react-ui";
 // import SectionTitle from "../components/Typography/SectionTitle";
 // import { Input, HelperText, Label, Select, Textarea } from "@windmill/react-ui";
-
-import { ProfileContext } from "../context/ProfileContext";
 import { RepoContext } from "../context/RepoContext";
 
 function Forms() {
   const { repoData } = useContext(RepoContext);
-  const { profileData } = useContext(ProfileContext);
-  const [page, setPage] = useState(1);
-  const [data, setData] = useState([]);
-  // pagination setup
-  const resultsPerPage = 10;
 
-  useEffect(() => {
-    setData(repoData.slice((page - 1) * resultsPerPage, page * resultsPerPage));
-    //eslint-disable-next-line
-  }, [page]);
-
-  // pagination change control
-  function onPageChange(p) {
-    setPage(p);
-  }
-
-  const truncateText = (text) => {
-    let limit = 50;
-    let truncate;
-    if (text.length > limit) {
-      truncate = text.substring(0, limit);
-      return truncate + "...";
-    } else {
-      truncate = text;
-      return truncate;
-    }
-  };
   return (
     <>
       <PageTitle>Repositories</PageTitle>
