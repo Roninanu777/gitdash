@@ -16,10 +16,15 @@ const routes = [
     icon: "FormsIcon",
     name: "Repositories",
   },
+  // {
+  //   path: "/app/cards",
+  //   icon: "CardsIcon",
+  //   name: "Explore",
+  // },
   {
-    path: "/app/cards",
-    icon: "CardsIcon",
-    name: "Explore",
+    path: "/app/notification",
+    icon: "BellIcon",
+    name: "Notifications",
   },
   // {
   //   path: '/app/charts',

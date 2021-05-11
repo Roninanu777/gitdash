@@ -18,11 +18,16 @@ import {
   DropdownItem,
   WindmillContext,
 } from "@windmill/react-ui";
+import { RepoContext } from "../context/RepoContext";
+import RepoCard from "./Cards/RepoCard";
 
 function Header(props) {
   const { mode, toggleMode } = useContext(WindmillContext);
   const { toggleSidebar } = useContext(SidebarContext);
   const { toggleProfile } = useContext(ProfileContext);
+  const { repoData } = useContext(RepoContext);
+  const [inputData, setInputData] = useState({});
+  const [repoName, setRepoName] = useState("");
 
   const [isNotificationsMenuOpen, setIsNotificationsMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
@@ -35,8 +40,21 @@ function Header(props) {
     setIsProfileMenuOpen(!isProfileMenuOpen);
   }
 
+  function handleChange(e) {
+    e.preventDefault();
+    setRepoName(e.target.value);
+    console.log(e.target.value);
+    let len = repoData.length;
+    let regex = new RegExp(e.target.value, "i");
+    for (let i = 0; i < len; i++) {
+      if (regex.test(repoData[i].name)) {
+        setInputData(repoData[i]);
+      }
+    }
+  }
+
   return (
-    <header className="z-10 py-4 bg-white shadow-bottom dark:bg-gray-800">
+    <header className="z-10 py-4 relative bg-white shadow-bottom dark:bg-gray-800">
       <div className="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300">
         {/* <!-- Mobile hamburger --> */}
         <button
@@ -54,7 +72,11 @@ function Header(props) {
             </div>
             <Input
               className="pl-8 text-gray-700"
-              placeholder="Search for projects"
+              type="text"
+              name="repoName"
+              value={repoName}
+              onChange={handleChange}
+              placeholder="Search from your repos..."
               aria-label="Search"
             />
           </div>
@@ -142,6 +164,11 @@ function Header(props) {
             </Dropdown>
           </li>
         </ul>
+      </div>
+      <div className="absolute w-1/3" style={{ left: "25.2%" }}>
+        {repoName.length > 0 && Object.keys(repoName).length !== 0 ? (
+          <RepoCard repo={inputData} />
+        ) : null}
       </div>
     </header>
   );

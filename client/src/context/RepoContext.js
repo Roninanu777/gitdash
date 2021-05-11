@@ -6,6 +6,7 @@ export const RepoContext = React.createContext();
 
 export const RepoProvider = ({ children }) => {
   const [repoData, setRepoData] = useState([]);
+  const [starredRepoData, setStarredRepo] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -16,12 +17,20 @@ export const RepoProvider = ({ children }) => {
     })();
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      const resp = await axios.get("https://api.github.com/user/starred");
+      setStarredRepo(resp.data);
+    })();
+  }, []);
+
   function setRepoHandler(data) {
     setRepoData(data);
   }
 
   const value = {
     repoData,
+    starredRepoData,
     setRepoHandler,
   };
 

@@ -10,6 +10,8 @@ const Modals = lazy(() => import("../pages/Modals"));
 const Tables = lazy(() => import("../pages/Tables"));
 const Page404 = lazy(() => import("../pages/404"));
 const Blank = lazy(() => import("../pages/Blank"));
+const Repository = lazy(() => import("../pages/Repository"));
+const Notification = lazy(() => import("../pages/Notification"));
 
 /**
  * ⚠ These are internal routes!
@@ -29,6 +31,14 @@ const routes = [
   {
     path: "/repositories",
     component: Forms,
+  },
+  {
+    path: "/notification",
+    component: Notification,
+  },
+  {
+    path: "/repositories/:repo",
+    component: Repository,
   },
   {
     path: "/cards",

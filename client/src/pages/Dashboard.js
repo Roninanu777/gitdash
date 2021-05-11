@@ -10,7 +10,7 @@ import { StarIcon, PeopleIcon, RepoIcon } from "../icons";
 import RoundIcon from "../components/RoundIcon";
 import { ProfileContext } from "../context/ProfileContext";
 import { RepoContext } from "../context/RepoContext";
-
+import { Card, CardBody } from "@windmill/react-ui";
 import {
   doughnutOptions,
   lineOptions,
@@ -101,6 +101,17 @@ function Dashboard() {
           />
         </InfoCard>
       </div>
+
+      <PageTitle>Daily Contribution graph</PageTitle>
+      <Card className="w-full">
+        <CardBody>
+          <img
+            className="w-full"
+            src={`https://ghchart.rshah.org/${profileData.login}`}
+            alt="Roninanu777's Github chart"
+          />
+        </CardBody>
+      </Card>
 
       <PageTitle>Charts</PageTitle>
       <div className="grid gap-6 mb-8 md:grid-cols-2">

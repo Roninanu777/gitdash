@@ -1,7 +1,9 @@
-import React from "react";
-import { Card, CardBody } from "@windmill/react-ui";
+import React, { useContext } from "react";
+import { Card, CardBody, WindmillContext } from "@windmill/react-ui";
+import { Link } from "react-router-dom";
 
 function RepoCard({ repo }) {
+  const { mode } = useContext(WindmillContext);
   const truncateText = (text) => {
     let limit = 30;
     let truncate;
@@ -14,14 +16,33 @@ function RepoCard({ repo }) {
     }
   };
   return (
-    <Card>
-      <CardBody className="">
+    <Card className="transition transform ease-in-out duration-100 hover:scale-105 shadow-md cursor-pointer">
+      <CardBody>
         <div>
-          <div className="flex items-center justify-between">
-            <p className="mb-2 text-base font-semibold text-gray-600 dark:text-gray-300">
-              {repo.name}
-            </p>
-            <div className="flex">
+          <div className="flex mb-2 items-center justify-between">
+            <div className="flex items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="octicon h-4 w-4 text-gray-500 octicon-repo "
+                title="Repository"
+                aria-label="Repository"
+                viewBox="0 0 16 16"
+                version="1.1"
+                role="img"
+              >
+                <path
+                  fill={mode === "dark" ? "#ebebeb" : "#575757"}
+                  d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"
+                ></path>
+              </svg>
+              <Link to={`/app/repositories/${repo.name}`}>
+                <p className="text-base ml-2 font-semibold text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
+                  {repo.name}
+                </p>
+              </Link>
+            </div>
+
+            <div className="flex items-center">
               <div className="mx-2 flex items-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -56,6 +77,23 @@ function RepoCard({ repo }) {
                   {repo.forks}
                 </span>
               </div>
+              <div className="mx-2 flex items-center">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="octicon h-4 w-4 octicon-info color-icon-secondary"
+                  viewBox="0 0 16 16"
+                  version="1.1"
+                  aria-hidden="true"
+                >
+                  <path
+                    fill="#AD5A91"
+                    d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm6.5-.25A.75.75 0 017.25 7h1a.75.75 0 01.75.75v2.75h.25a.75.75 0 010 1.5h-2a.75.75 0 010-1.5h.25v-2h-.25a.75.75 0 01-.75-.75zM8 6a1 1 0 100-2 1 1 0 000 2z"
+                  ></path>
+                </svg>
+                <span className="text-gray-500 text-sm ml-2 dark:text-gray-400">
+                  {repo.open_issues_count}
+                </span>
+              </div>
             </div>
           </div>
           <p className="text-sm text-gray-400 dark:text-gray-500">
@@ -63,6 +101,35 @@ function RepoCard({ repo }) {
               ? truncateText(repo.description)
               : "No description"}
           </p>
+          <div className="flex mt-3 items-center">
+            <div
+              className={`inline-block p-1 rounded-full ${
+                repo.private ? "bg-red-400 dark:bg-red-500" : "bg-green-400"
+              }`}
+            ></div>
+            <p className="text-xs ml-2 text-gray-600 dark:text-gray-500">
+              {repo.private ? "Private" : "Public"}
+            </p>
+
+            <p className="text-xs ml-4 font-semibold dark:text-gray-500 text-gray-600">
+              Language:{" "}
+              {repo.language ? (
+                <span className="text-xs font-normal text-gray-600 dark:text-gray-500">
+                  {repo.language}
+                </span>
+              ) : (
+                <span className="text-xs text-gray-600 dark:text-gray-500">
+                  none
+                </span>
+              )}
+            </p>
+            <p className="text-xs ml-4 font-semibold dark:text-gray-500 text-gray-600">
+              Created at:{" "}
+              <span className="text-xs font-normal text-gray-600 dark:text-gray-500">
+                {new Date(repo.created_at).toLocaleDateString()}
+              </span>
+            </p>
+          </div>
         </div>
       </CardBody>
     </Card>
