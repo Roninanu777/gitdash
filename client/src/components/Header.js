@@ -20,6 +20,7 @@ import {
 } from "@windmill/react-ui";
 import { RepoContext } from "../context/RepoContext";
 import RepoCard from "./Cards/RepoCard";
+import { Link } from "react-router-dom";
 
 function Header(props) {
   const { mode, toggleMode } = useContext(WindmillContext);
@@ -98,37 +99,21 @@ function Header(props) {
           </li>
           {/* <!-- Notifications menu --> */}
           <li className="relative">
-            <button
-              className="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple"
-              onClick={handleNotificationsClick}
-              aria-label="Notifications"
-              aria-haspopup="true"
-            >
-              <BellIcon className="w-5 h-5" aria-hidden="true" />
-              {/* <!-- Notification badge --> */}
-              <span
-                aria-hidden="true"
-                className="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full dark:border-gray-800"
-              ></span>
-            </button>
-
-            <Dropdown
-              align="right"
-              isOpen={isNotificationsMenuOpen}
-              onClose={() => setIsNotificationsMenuOpen(false)}
-            >
-              <DropdownItem tag="a" href="#" className="justify-between">
-                <span>Messages</span>
-                <Badge type="danger">13</Badge>
-              </DropdownItem>
-              <DropdownItem tag="a" href="#" className="justify-between">
-                <span>Sales</span>
-                <Badge type="danger">2</Badge>
-              </DropdownItem>
-              <DropdownItem onClick={() => alert("Alerts!")}>
-                <span>Alerts</span>
-              </DropdownItem>
-            </Dropdown>
+            <Link to="/app/notification">
+              <button
+                className="relative align-middle rounded-md focus:outline-none focus:shadow-outline-purple"
+                onClick={handleNotificationsClick}
+                aria-label="Notifications"
+                aria-haspopup="true"
+              >
+                <BellIcon className="w-5 h-5" aria-hidden="true" />
+                {/* <!-- Notification badge --> */}
+                <span
+                  aria-hidden="true"
+                  className="absolute top-0 right-0 inline-block w-3 h-3 transform translate-x-1 -translate-y-1 bg-red-600 border-2 border-white rounded-full dark:border-gray-800"
+                ></span>
+              </button>
+            </Link>
           </li>
           {/* <!-- Profile menu --> */}
           <li className="relative">
