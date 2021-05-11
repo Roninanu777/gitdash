@@ -12,7 +12,6 @@ import {
 } from "../icons";
 import {
   Avatar,
-  Badge,
   Input,
   Dropdown,
   DropdownItem,
