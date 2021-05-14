@@ -1,2 +1,4 @@
 node_modules
 .env
+gitdash-rsa-priv.pem
+gitdash-rsa-pub.pem
