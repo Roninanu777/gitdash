@@ -1,34 +1,30 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useContext } from "react";
+
+import CTA from "../components/CTA";
 import PageTitle from "../components/Typography/PageTitle";
-import CommitCard from "../components/Cards/CommitCard";
-import axios from "axios";
-import { ProfileContext } from "../context/ProfileContext";
+import RepoCard from "../components/Cards/RepoCard.js";
+import { RepoContext } from "../context/RepoContext";
 
-const Repository = (props) => {
-  const [commitData, setCommitData] = useState([]);
-  const { profileData } = useContext(ProfileContext);
-
-  useEffect(() => {
-    (async () => {
-      const resp = await axios.get(
-        `https://api.github.com/repos/${profileData.login}/${props.match.params.repo}/commits`
-      );
-      console.log(resp.data[0]);
-      setCommitData(resp.data);
-    })();
-    //eslint-disable-next-line
-  }, []);
+function Repository() {
+  const { repoData, starredRepoData } = useContext(RepoContext);
 
   return (
     <>
-      <PageTitle>Commits</PageTitle>
-      <div className="my-4">
-        {commitData.map((commit, i) => (
-          <CommitCard commit={commit} key={i} />
+      <PageTitle>Starred Repositories</PageTitle>
+      <CTA />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {starredRepoData.map((repo, i) => (
+          <RepoCard repo={repo} key={i} />
+        ))}
+      </div>
+      <PageTitle>Repositories</PageTitle>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {repoData.map((repo, i) => (
+          <RepoCard repo={repo} key={i} />
         ))}
       </div>
     </>
   );
-};
+}
 
 export default Repository;
